@@ -3,6 +3,6 @@ Projeto para testar virtualenv e pip
 
 Instalar
 
-'''
-pip install githubxml
-'''
+``` 
+    ßpip install githubxml
+```
