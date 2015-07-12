@@ -4,5 +4,5 @@ Projeto para testar virtualenv e pip
 Instalar
 
 ``` 
-    ßpip install githubxml
+    pip install githubxml
 ```

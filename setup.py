@@ -133,6 +133,7 @@ setup(
     ],
     zip_safe=False,
     install_requires=[
-        'xmltodict>=0.9.2'
+        'xmltodict>=0.9.2',
+        'requests>=2.7.0'
     ]
 )
