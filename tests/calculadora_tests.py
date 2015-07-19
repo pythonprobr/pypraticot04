@@ -1,4 +1,5 @@
 from asyncio.test_utils import TestCase
+from unittest.mock import Mock, patch
 
 from githubxml.calculadora import Adicao, Operacao, Diferenca, Calculadora
 
@@ -34,19 +35,26 @@ class CalculadoraTests(TestCase):
 
     def test_efetuar_operacao(self):
         calculadora = Calculadora()
-        operacao = OperacaoMock()
+        operacao = Mock()
+        operacao.calcular = Mock(return_value=3)
         calculadora.adicionar_operacao('-', operacao)
         self.assertIs(3, calculadora.efetuar_operacao('-', 1, 3))
-        self.assertEqual(1, operacao.param)
-        self.assertEqual(3, operacao.param1)
+        operacao.calcular.assert_called_once_with(1, 3)
 
 
-class OperacaoMock():
-    def __init__(self):
-        self.param = None
-        self.param1 = None
+    @patch('githubxml.calculadora.meu_input')
+    def test_efetuar_operacao(self, input_mock):
+        calculadora = Calculadora()
+        index_call=-1
 
-    def calcular(self, param, param1):
-        self.param = param
-        self.param1 = param1
-        return 3
+        def returnar_inputs(msg):
+            nonlocal index_call
+            index_call +=1
+            return [1, '-' , 3][index_call]
+
+        input_mock.side_effect=returnar_inputs
+        operacao = Mock()
+        operacao.calcular = Mock(return_value=3)
+        calculadora.adicionar_operacao('-', operacao)
+        self.assertIs(3, calculadora.obter_inputs_e_efetuar_operacao())
+        operacao.calcular.assert_called_once_with(1, 3)
