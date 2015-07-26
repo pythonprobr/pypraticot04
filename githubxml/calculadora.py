@@ -39,10 +39,16 @@ class Calculadora():
         self._sinal = meu_input('Digite o sinal da operação: ')
         self._param1 = float(meu_input('Digite o segundo número: '))
 
+class CalculadoraPrefixa(Calculadora):
+    def _obter_inputs(self):
+        self._sinal = meu_input('Digite o sinal da operação: ')
+        self._param = float(meu_input('Digite o primeiro número: '))
+        self._param1 = float(meu_input('Digite o segundo número: '))
+
 def meu_input(msg):
     return input(msg)
 
 if __name__=='__main__':
-    calculadora=Calculadora()
+    calculadora=CalculadoraPrefixa()
     calculadora.adicionar_operacao('+', Adicao())
     print(calculadora.obter_inputs_e_efetuar_operacao())
